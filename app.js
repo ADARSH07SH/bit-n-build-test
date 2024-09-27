@@ -7,7 +7,13 @@ const ejsMate = require("ejs-mate");
 const app = express();
 const port = 8080;
 
-
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -28,6 +34,8 @@ connection.connect((err) => {
   }
   console.log("Connected to the database.");
 });
+
+
 
 app.get("/", (req, res) => {
   res.render("home");
